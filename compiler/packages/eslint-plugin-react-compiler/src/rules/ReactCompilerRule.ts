@@ -59,7 +59,7 @@ const rule: Rule.RuleModule = {
   meta: {
     type: "problem",
     docs: {
-      description: "Surfaces diagnostics from React Forget",
+      description: "Surfaces diagnostics from React Compiler",
       recommended: true,
     },
     fixable: "code",
