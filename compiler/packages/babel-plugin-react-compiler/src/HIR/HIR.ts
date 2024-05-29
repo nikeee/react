@@ -855,6 +855,13 @@ export type InstructionValue =
       loc: SourceLocation;
     }
   | {
+      kind: "ConditionalExpression";
+      test: Place;
+      consequent: Place;
+      alternate: Place;
+      loc: SourceLocation;
+    }
+  | {
       kind: "NewExpression";
       callee: Place;
       args: Array<Place | SpreadPattern>;

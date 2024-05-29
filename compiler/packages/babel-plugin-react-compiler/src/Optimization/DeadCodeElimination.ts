@@ -353,6 +353,7 @@ function pruneableValue(value: InstructionValue, state: State): boolean {
     case "LoadGlobal":
     case "ArrayExpression":
     case "BinaryExpression":
+    case "ConditionalExpression":
     case "ComputedLoad":
     case "ObjectMethod":
     case "FunctionExpression":

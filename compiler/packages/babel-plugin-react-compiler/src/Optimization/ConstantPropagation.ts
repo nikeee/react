@@ -510,6 +510,19 @@ function evaluateInstruction(
       constantPropagationImpl(value.loweredFunc.func, constants);
       return null;
     }
+    case "ConditionalExpression": {
+      const test = read(constants, value.test);
+      if (test === null || test.kind !== "Primitive") {
+        return null;
+      }
+      const target = test.value ? value.consequent : value.alternate;
+      const targetValue = read(constants, target);
+      if (targetValue === null) {
+        return null;
+      }
+      instr.value = targetValue;
+      return targetValue;
+    }
     default: {
       // TODO: handle more cases
       return null;

@@ -190,6 +190,14 @@ function* generateInstructionTypes(
       break;
     }
 
+    case "ConditionalExpression": {
+      yield equation(value.test.identifier.type, { kind: "Primitive" });
+      yield equation(value.consequent.identifier.type, { kind: "Primitive" });
+      yield equation(value.alternate.identifier.type, { kind: "Primitive" });
+      yield equation(left, { kind: "Primitive" });
+      break;
+    }
+
     case "PostfixUpdate":
     case "PrefixUpdate": {
       yield equation(value.value.identifier.type, { kind: "Primitive" });

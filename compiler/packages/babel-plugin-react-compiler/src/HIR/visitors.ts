@@ -69,6 +69,12 @@ export function* eachInstructionValueOperand(
       yield instrValue.right;
       break;
     }
+    case "ConditionalExpression": {
+      yield instrValue.test;
+      yield instrValue.consequent;
+      yield instrValue.alternate;
+      break;
+    }
     case "MethodCall": {
       yield instrValue.receiver;
       yield instrValue.property;
@@ -381,6 +387,12 @@ export function mapInstructionValueOperands(
     case "BinaryExpression": {
       instrValue.left = fn(instrValue.left);
       instrValue.right = fn(instrValue.right);
+      break;
+    }
+    case "ConditionalExpression": {
+      instrValue.test = fn(instrValue.test);
+      instrValue.consequent = fn(instrValue.consequent);
+      instrValue.alternate = fn(instrValue.alternate);
       break;
     }
     case "PropertyLoad": {
