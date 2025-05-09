@@ -7,7 +7,7 @@
  * @noflow
  * @nolint
  * @preventMunge
- * @generated SignedSource<<a33dca051422ba2a62bec2e3dba88276>>
+ * @generated SignedSource<<2d5f2e8fac616e31cc82259785b545cf>>
  */
 
 "use strict";
@@ -88,8 +88,9 @@ var pureComponentPrototype = (PureComponent.prototype = new ComponentDummy());
 pureComponentPrototype.constructor = PureComponent;
 assign(pureComponentPrototype, Component.prototype);
 pureComponentPrototype.isPureReactComponent = !0;
-var isArrayImpl = Array.isArray,
-  ReactSharedInternals = { H: null, A: null, T: null, S: null },
+var isArrayImpl = Array.isArray;
+function noop() {}
+var ReactSharedInternals = { H: null, A: null, T: null, S: null },
   hasOwnProperty = Object.prototype.hasOwnProperty;
 function ReactElement(type, key, self, source, owner, props) {
   self = props.ref;
@@ -144,7 +145,6 @@ function getElementKey(element, index) {
     ? escape("" + element.key)
     : index.toString(36);
 }
-function noop$1() {}
 function resolveThenable(thenable) {
   switch (thenable.status) {
     case "fulfilled":
@@ -154,7 +154,7 @@ function resolveThenable(thenable) {
     default:
       switch (
         ("string" === typeof thenable.status
-          ? thenable.then(noop$1, noop$1)
+          ? thenable.then(noop, noop)
           : ((thenable.status = "pending"),
             thenable.then(
               function (fulfilledValue) {
@@ -318,36 +318,35 @@ function useMemoCache(size) {
   return ReactSharedInternals.H.useMemoCache(size);
 }
 var reportGlobalError =
-  "function" === typeof reportError
-    ? reportError
-    : function (error) {
-        if (
-          "object" === typeof window &&
-          "function" === typeof window.ErrorEvent
-        ) {
-          var event = new window.ErrorEvent("error", {
-            bubbles: !0,
-            cancelable: !0,
-            message:
-              "object" === typeof error &&
-              null !== error &&
-              "string" === typeof error.message
-                ? String(error.message)
-                : String(error),
-            error: error
-          });
-          if (!window.dispatchEvent(event)) return;
-        } else if (
-          "object" === typeof process &&
-          "function" === typeof process.emit
-        ) {
-          process.emit("uncaughtException", error);
-          return;
-        }
-        console.error(error);
-      };
-function noop() {}
-var ReactCompilerRuntime = { __proto__: null, c: useMemoCache };
+    "function" === typeof reportError
+      ? reportError
+      : function (error) {
+          if (
+            "object" === typeof window &&
+            "function" === typeof window.ErrorEvent
+          ) {
+            var event = new window.ErrorEvent("error", {
+              bubbles: !0,
+              cancelable: !0,
+              message:
+                "object" === typeof error &&
+                null !== error &&
+                "string" === typeof error.message
+                  ? String(error.message)
+                  : String(error),
+              error: error
+            });
+            if (!window.dispatchEvent(event)) return;
+          } else if (
+            "object" === typeof process &&
+            "function" === typeof process.emit
+          ) {
+            process.emit("uncaughtException", error);
+            return;
+          }
+          console.error(error);
+        },
+  ReactCompilerRuntime = { __proto__: null, c: useMemoCache };
 exports.Children = {
   map: mapChildren,
   forEach: function (children, forEachFunc, forEachContext) {
@@ -591,7 +590,7 @@ exports.useSyncExternalStore = function (
 exports.useTransition = function () {
   return ReactSharedInternals.H.useTransition();
 };
-exports.version = "19.2.0-native-fb-e5a8de81-20250506";
+exports.version = "19.2.0-native-fb-3820740a-20250509";
 "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
   "function" ===
     typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop &&
